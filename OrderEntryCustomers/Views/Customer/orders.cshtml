@@ -41,7 +41,8 @@
                     </td>
                     <td>
                         @*@Html.ActionLink("Details","details",new { id = item.OrdNo})*@
-                        <button onclick=orderDetails("@item.OrdNo") >Details</button>
+                        <button onclick=orderDetails("@item.OrdNo") >Details</button> 
+                     <!--   <a onclick=orderDetails("@item.OrdNo")>Details </a> -->
                     </td>
                 </tr>
             }

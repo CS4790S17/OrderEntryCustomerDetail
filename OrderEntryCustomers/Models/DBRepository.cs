@@ -68,7 +68,7 @@ namespace ViewModelTemplate.Models
             OrderEntryDbContext db = new OrderEntryDbContext();
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@OrdNo", ordNo));
-            string sql = "SELECT o.CustNo, o.OrdNo, l.ProdNo, p.ProdName, l.Qty, p.ProdPrice " +
+            string sql = "SELECT o.OrdNo, l.ProdNo, p.ProdName, l.Qty, p.ProdPrice " +
                 "FROM OrderTbl o INNER JOIN OrdLine l " + 
                 " ON o.OrdNo = l.OrdNo " +
                 " INNER JOIN Product p " +
@@ -105,14 +105,12 @@ namespace ViewModelTemplate.Models
         public OrderDetail()
         {
         }
+
         [Key]
-        [Column(Order=1)]
-        public string CustNo { get; set; }
-        [Key]
-        [Column(Order = 2)]
+        [Column(Order = 1)]
         public string OrdNo { get; set; }
         [Key]
-        [Column(Order = 3)]
+        [Column(Order = 2)]
         public string ProdNo { get; set; }
         [Display(Name = "Product")]
         public string ProdName { get; set; }
