@@ -1,0 +1,72 @@
+﻿@model ViewModelTemplate.Models.CustomerOrders
+
+@{
+    ViewBag.Title = "orders";
+}
+
+<h2>Customer Orders</h2>
+
+<div class="container">
+    <div class="col-md-3">
+        <span style="font-weight:bold">Customer</span><br/><br/>
+        @Html.DisplayFor(model => model.customer.CustFirstName) 
+        @Html.DisplayFor(model => model.customer.CustLastName)
+        <br />
+        @Html.DisplayFor(model => model.customer.CustStreet)
+        <br />
+        @Html.DisplayFor(model => model.customer.CustCity), 
+        @Html.DisplayFor(model => model.customer.CustState) 
+        @Html.DisplayFor(model => model.customer.CustZip)
+    </div>
+    <div class="col-md-5">
+        <table>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.orders[0].OrdNo)</th>
+                <th>@Html.DisplayNameFor(model => model.orders[0].OrdDate)</th>
+                <th>@Html.DisplayNameFor(model => model.orders[0].OrdName)</th>
+            </tr>
+            @foreach (var item in Model.orders)
+            {
+                <tr id="order-col-@item.OrdNo" class="order-col">
+                    <td >
+                        @Html.DisplayFor(Modelitem => item.OrdNo)
+                    </td>
+                    <td>@{ 
+                        var shortDate = item.OrdDate.ToShortDateString();
+                    }
+                        @shortDate
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Modelitem => item.OrdName)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Details","details",new { id = item.OrdNo})*@
+                        <button onclick=orderDetails("@item.OrdNo") >Details</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-4" id="orderDetails"></div>
+    
+</div>
+<p>
+    <br/>
+    @*Html.ActionLink("Edit", "Edit", new { id = Model.custNo }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<script>
+    function orderDetails(ordNo) {
+
+        $("#orderDetails").load("/customer/orderDetails", { ordNo: ordNo });
+
+        var orderCols = document.getElementsByClassName("order-col");
+        for (var i = 0; i < orderCols.length; i++) {
+            orderCols[i].style = "color:black";
+        }
+
+        var orderCol = document.getElementById("order-col-" + ordNo);
+        orderCol.style = "color:green;"
+        
+    }
+</script>
