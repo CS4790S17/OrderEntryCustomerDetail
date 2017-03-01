@@ -61,11 +61,13 @@
 
         $("#orderDetails").load("/customer/orderDetails", { ordNo: ordNo });
 
+        //*********** change the color of the order that is being worked on
+        //*********** first change all the rows to black
         var orderCols = document.getElementsByClassName("order-col");
         for (var i = 0; i < orderCols.length; i++) {
             orderCols[i].style = "color:black";
         }
-
+        //*********** then change the selected row to green
         var orderCol = document.getElementById("order-col-" + ordNo);
         orderCol.style = "color:green;"
         
